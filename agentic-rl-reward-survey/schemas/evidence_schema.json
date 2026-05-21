@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceItem",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_id",
+    "work_id",
+    "claim",
+    "supporting_url",
+    "confidence"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "description": "Stable id, e.g. toolformer_2023_e01."
+    },
+    "work_id": {
+      "type": "string"
+    },
+    "claim": {
+      "type": "string"
+    },
+    "supporting_url": {
+      "type": "string"
+    },
+    "quote_or_paraphrase": {
+      "type": "string"
+    },
+    "page_or_section": {
+      "type": ["string", "null"]
+    },
+    "evidence_type": {
+      "type": "string",
+      "enum": ["direct_quote", "paraphrase", "table", "formula", "code", "benchmark_metric", "issue", "unknown"]
+    },
+    "supports": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Which draft section or matrix row this evidence supports."
+    },
+    "limitations": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    }
+  }
+}
+

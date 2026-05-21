@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkSource",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "year",
+    "venue_or_source_type",
+    "url",
+    "confidence"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable lowercase slug, e.g. toolformer_2023."
+    },
+    "title": {
+      "type": "string"
+    },
+    "authors": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "year": {
+      "type": ["integer", "string"]
+    },
+    "venue_or_source_type": {
+      "type": "string",
+      "enum": ["paper", "arxiv", "blog", "github", "benchmark", "report", "project_page", "leaderboard", "unknown"]
+    },
+    "url": {
+      "type": "string"
+    },
+    "code_url": {
+      "type": ["string", "null"]
+    },
+    "task_type": {
+      "type": "string",
+      "description": "Examples: function calling, web agent, search agent, code execution, software engineering, API transaction."
+    },
+    "training_paradigm": {
+      "type": "string",
+      "description": "Examples: PPO, GRPO, RLOO, REINFORCE, DPO, RLAIF, SFT, prompting, inference-time, benchmark-only, unknown."
+    },
+    "reward_signal": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "tool_use_setting": {
+      "type": "string"
+    },
+    "benchmark": {
+      "type": ["string", "null"]
+    },
+    "has_rl": {
+      "type": ["boolean", "null"]
+    },
+    "has_process_reward": {
+      "type": ["boolean", "null"]
+    },
+    "has_execution_reward": {
+      "type": ["boolean", "null"]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    }
+  }
+}
+

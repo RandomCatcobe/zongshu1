@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RewardExtraction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "work_id",
+    "reward_type",
+    "source_of_signal",
+    "granularity",
+    "confidence"
+  ],
+  "properties": {
+    "work_id": {
+      "type": "string"
+    },
+    "reward_type": {
+      "type": "string",
+      "enum": [
+        "outcome",
+        "process",
+        "execution",
+        "format_schema",
+        "llm_as_judge",
+        "preference_contrastive",
+        "kl_regularization",
+        "cost_penalty",
+        "safety_penalty",
+        "exploration_bonus",
+        "unknown"
+      ]
+    },
+    "formula_or_pseudocode": {
+      "type": "string"
+    },
+    "positive_reward": {
+      "type": "string"
+    },
+    "negative_reward": {
+      "type": "string"
+    },
+    "source_of_signal": {
+      "type": "string",
+      "description": "Gold answer, unit test, API execution, environment state, LLM judge, human preference, verifier, heuristic, unknown."
+    },
+    "granularity": {
+      "type": "string",
+      "enum": ["token", "tool_call", "step", "subgoal", "trajectory", "episode", "pairwise", "unknown"]
+    },
+    "applies_to": {
+      "type": "string"
+    },
+    "failure_modes": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    }
+  }
+}
+
