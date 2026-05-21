@@ -18,4 +18,4 @@ STOP AFTER PROMPT 3
 
 下一步不得直接写最终正文。应先执行 Prompt 4，基于 `sources/sources.jsonl` 和 `matrices/work_taxonomy.csv` 为 high/medium confidence source 建立 `notes/works/{id}.md`，逐篇抽取 reward、metric、failure mode 和 evidence。
 
-恢复时先读 `REVIEW_PLAN.md`、`HANDOFF.md`、`sources/source_conflicts.md`，然后执行 Prompt 4。
+恢复时先读 `REVIEW_PLAN.md`、`HANDOFF.md`、`sources/source_conflicts.md`，尤其是 `HANDOFF.md` 中的 Open Questions / Doubts，然后执行 Prompt 4。
