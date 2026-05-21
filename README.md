@@ -11,19 +11,22 @@
 
 ## 当前状态
 
-综述计划已经整理到 `agentic-rl-reward-survey/REVIEW_PLAN.md`。当前停止点仍是正式资料搜集之前：
+综述计划已经整理到 `agentic-rl-reward-survey/REVIEW_PLAN.md`。当前停止点是 Prompt 3 之后：
 
-- 可以从 Prompt 2 开始做第一轮联网资料搜集。
-- 不应直接写正文或向 `sources/sources.jsonl` 写入未核实条目。
+- Prompt 2 第一轮代表工作/benchmark 搜集已完成一轮。
+- Prompt 3 的 2024-2026 最新工作补检已完成一轮。
+- 下一步应从 Prompt 4 开始做逐篇 reward 信息抽取。
 - 所有 claim 必须先有可信 source，再进入 notes、matrices 或 drafts。
 
 ## 下一步
 
-读取以下文件后执行 `agentic-rl-reward-survey-prompts/prompt-02-first-source-collection.md`：
+读取以下文件后执行 `agentic-rl-reward-survey-prompts/prompt-04-extract-reward-info.md`：
 
 - `agentic-rl-reward-survey/REVIEW_PLAN.md`
 - `agentic-rl-reward-survey/HANDOFF.md`
 - `agentic-rl-reward-survey/config/scope.md`
 - `agentic-rl-reward-survey/config/inclusion_exclusion.md`
-- `agentic-rl-reward-survey/config/search_queries.md`
+- `agentic-rl-reward-survey/sources/sources.jsonl`
+- `agentic-rl-reward-survey/matrices/work_taxonomy.csv`
 - `agentic-rl-reward-survey/sources/missing_sources.md`
+- `agentic-rl-reward-survey/sources/source_conflicts.md`

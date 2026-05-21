@@ -1,6 +1,6 @@
 ﻿# Preflight Checklist
 
-正式跑 Prompt 2 之前检查：
+正式跑 Prompt 4 之前检查：
 
 - [x] 仓库结构已创建。
 - [x] `REVIEW_PLAN.md` 已定义综述总计划和质量门槛。
@@ -14,8 +14,12 @@
 - [x] `matrices/*.csv` 已初始化表头。
 - [x] `drafts/*.md` 已初始化占位。
 - [x] `audits/*.md` 已初始化占位。
-- [ ] 正式联网检索尚未开始。
-- [ ] `sources/sources.jsonl` 仍为空，等待 Prompt 2 写入。
+- [x] Prompt 2 第一轮联网检索已完成一轮。
+- [x] Prompt 3 的 2024-2026 补检已完成一轮。
+- [x] `sources/sources.jsonl` 已写入第一轮 source。
+- [x] `matrices/work_taxonomy.csv` 已写入第一轮 taxonomy。
+- [x] `sources/source_conflicts.md` 已记录名称歧义和版本冲突。
+- [ ] `notes/works/{id}.md` 尚未开始逐篇抽取。
 
 ## Handoff Rule
 

@@ -1,8 +1,8 @@
-﻿# Handoff
+# Handoff
 
 ## Current State
 
-研究仓库已经完成正式跑之前的准备工作，并已将综述计划收束到 `REVIEW_PLAN.md`。尚未开始正式联网检索、source 抽取或正文写作。
+研究仓库已经完成正式跑之前的准备工作，并已将综述计划收束到 `REVIEW_PLAN.md`。Prompt 2/3 已完成第一轮联网检索和 2024-2026 补检；尚未开始逐篇 source 抽取或正文写作。
 
 已完成：
 
@@ -14,20 +14,22 @@
 - `config/run_strategy.md` 已写明并行/串行执行建议。
 - `config/preflight_checklist.md` 已写明正式跑前检查项。
 - `schemas/work_schema.json`、`schemas/reward_schema.json`、`schemas/evidence_schema.json` 已创建并验证可解析。
-- `sources/missing_sources.md` 已列出第一轮必须尝试寻找的工作。
-- `matrices/*.csv` 已初始化表头。
-- `drafts/*.md` 与 `audits/*.md` 已初始化占位。
-- `sources/sources.jsonl` 仍为空，表示尚未进入正式检索阶段。
+- `sources/sources.jsonl` 已写入第一轮 source 条目。
+- `matrices/work_taxonomy.csv` 已写入第一轮 taxonomy。
+- `sources/missing_sources.md` 已记录已尝试检索的工作和仍需抽取的信息。
+- `sources/source_conflicts.md` 已记录名称歧义和版本冲突。
+- `matrices/reward_taxonomy.csv`、`matrices/benchmark_taxonomy.csv`、`matrices/gap_matrix.csv` 仍只有表头。
+- `drafts/*.md` 与 `audits/*.md` 仍是占位。
 
 ## Stop Point
 
 停止点设置在：
 
 ```text
-STOP BEFORE PROMPT 2: 第一轮正式资料搜集尚未开始。
+STOP AFTER PROMPT 3: 第一轮代表工作/benchmark 搜集和 2024-2026 补检已完成。
 ```
 
-下一个 agent 可以从 Prompt 2 开始，但必须先读取：
+下一个 agent 可以从 Prompt 4 开始，但必须先读取：
 
 - `README.md`
 - `REVIEW_PLAN.md`
@@ -36,22 +38,25 @@ STOP BEFORE PROMPT 2: 第一轮正式资料搜集尚未开始。
 - `config/search_queries.md`
 - `config/preflight_checklist.md`
 - `config/run_strategy.md`
+- `sources/sources.jsonl`
+- `matrices/work_taxonomy.csv`
 - `sources/missing_sources.md`
+- `sources/source_conflicts.md`
 
 ## Next Action
 
 下一步应该执行：
 
 ```text
-Prompt 2：第一轮搜集代表工作
+Prompt 4：逐篇抽取 reward 信息
 ```
 
 目标：
 
-- 使用联网搜索。
-- 建立 `sources/sources.jsonl`。
-- 更新 `matrices/work_taxonomy.csv`。
-- 更新 `sources/missing_sources.md`。
+- 基于已有 sources，不直接扩写正文。
+- 为 high/medium confidence source 建立 `notes/works/{id}.md`。
+- 抽取 reward signal、reward granularity、execution/semantic/process reward、benchmark metric、failure mode 和 evidence id。
+- 低置信或命名冲突条目先保留在 source_conflicts / missing_sources 中。
 - 不写综述正文。
 
 ## Execution Rule
@@ -69,18 +74,16 @@ Prompt 2：第一轮搜集代表工作
 
 ## Parallelism Guidance
 
-推荐策略：主工作流串行推进，正式检索阶段局部并行。
-
-适合并行的检索 sidecar：
+Prompt 4 抽取阶段可以按 source 类别拆 sidecar，但主 agent 必须统一 evidence id 和 notes 模板：
 
 | Sidecar | Scope |
 |---|---|
-| representative works | ToolFormer, ReAct, Reflexion, ToRA, AgentTuning, FireAct, xLAM, ToolACE, ReTool, ARTIST, RAGEN, Search-R1, ToolRL |
-| benchmarks | ToolBench, APIBench, AgentBench, WebArena, SWE-bench, tau-bench, BFCL, APIGen-MT |
-| latest RL methods | 2024-2026 GRPO/RLOO/RLAIF/DPO/tool-use RL/process reward |
-| failure modes | cascade drift, silent errors, reward hacking, benchmark limitations |
+| representative works | ToolFormer, ReAct, Reflexion, ToRA, AgentTuning, FireAct, xLAM, ToolACE, APIGen |
+| benchmarks | ToolBench, API-Bank, AgentBench, WebArena, SWE-bench, tau-bench, BFCL, ToolPRMBench |
+| latest RL methods | ReTool, ARTIST, RAGEN, Search-R1, ToolRL, CM2, MUA-RL, turn-level credit assignment |
+| preference/process reward | AgentPRM, DMPO, EPO, RLAIF API-code, SWiRL |
 
-主 agent 必须负责合并、去重、标准化 id、写入 `sources/sources.jsonl` 和 `matrices/*.csv`。
+主 agent 必须负责合并、去重、标准化 id、写入 `notes/works/*.md`、`matrices/reward_taxonomy.csv` 和后续 drafts。
 
 不建议多个 agent 同时写：
 
@@ -94,8 +97,8 @@ Prompt 2：第一轮搜集代表工作
 
 恢复工作时先确认：
 
-- `sources/sources.jsonl` 是否仍为空。
-- `matrices/work_taxonomy.csv` 是否只有表头。
-- `sources/missing_sources.md` 中 TODO 是否尚未处理。
-- 当前任务是否仍是 Prompt 2。
+- `sources/sources.jsonl` 是否仍可逐行解析为 JSON。
+- `matrices/work_taxonomy.csv` 是否与 sources 条目数一致。
+- `sources/missing_sources.md` 中哪些条目仍需要深挖。
+- 当前任务是否仍是 Prompt 4。
 - `REVIEW_PLAN.md` 是否仍与 scope 和 inclusion/exclusion 一致。

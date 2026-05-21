@@ -113,4 +113,4 @@ Before final synthesis:
 
 ## Current Stop Point
 
-The plan is ready. Formal source collection has not started. Resume from `HANDOFF.md`, then execute `agentic-rl-reward-survey-prompts/prompt-02-first-source-collection.md`.
+Prompt 2/3 source collection has completed one pass. Resume from `HANDOFF.md`, then execute `agentic-rl-reward-survey-prompts/prompt-04-extract-reward-info.md`.
