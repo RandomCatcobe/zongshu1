@@ -1,34 +1,67 @@
-﻿# Agentic RL Reward Survey Research Repo
+# Agentic RL Reward Survey Research Repo
 
-本仓库用于按文件化 workflow 写作一篇关于 agentic RL 在 API/tool-use 场景下 reward design 的系统综述。当前状态是 source collection ready：仓库结构、scope、schema、检索计划、执行计划、第一轮 source、work taxonomy 和审计占位已经准备好，但尚未开始逐篇抽取或综述正文写作。
+本仓库用于按文件化 workflow 写作一篇关于 agentic RL 在 API/tool-use/function-calling 场景中 reward design 的系统综述。
 
-综述总计划见 `REVIEW_PLAN.md`。它是恢复工作时的主入口，用于约束 source pipeline、agent 分工、证据规则和质量门槛。
+综述总计划见 `REVIEW_PLAN.md`。恢复工作时的主入口是 `HANDOFF.md`，硬停止点见 `STOP_POINT.md`。
 
-## Workflow
+## Workflow Status
 
-1. 初始化仓库结构、scope、schema、矩阵和审计占位。
-2. 制定综述总计划与检索计划，列出 query group、纳入标准、预期来源、false positives、证据规则和质量门槛。
-3. 第一轮正式检索代表工作和 benchmark，写入 `sources/sources.jsonl` 与 `matrices/work_taxonomy.csv`。已完成一轮。
-4. 第二轮补全 2024-2026 年最新 agentic RL / tool-use RL / process reward 工作。已完成一轮。
-5. 基于已有 sources 逐篇抽取 reward 信息，生成 `notes/works/{id}.md`。下一步。
-6. 分 section 合成：field map、reward inventory、cascade drift、silent errors、engineering checklist、gaps / anti-patterns、adjacent fields。
-7. 做 citation / claim / coverage 审计。
-8. 基于 drafts 和 audits 合成 `drafts/final_survey.md`。
+当前状态：
 
-## 当前停止点
+```text
+ACL HANDOFF PACKAGE READY
+```
 
-可以开始执行 Prompt 4，也就是基于已有 source 逐篇抽取 reward 信息。正式跑之前不要跳过以下检查：
+最终综述：
 
-- `config/scope.md` 是否符合最终研究边界。
-- `config/inclusion_exclusion.md` 是否能区分 RL training、benchmark-only、prompting-only。
-- `schemas/*.json` 是否覆盖后续抽取字段。
-- `config/search_queries.md` 是否覆盖代表工作、failure modes、benchmarks 和相邻领域。
-- `sources/missing_sources.md` 是否列出了仍需深挖的工作。
-- `sources/source_conflicts.md` 是否记录了命名和版本冲突。
-- `sources/sources.jsonl` 与 `matrices/work_taxonomy.csv` 是否一致。
+- `drafts/final_survey.md`
+- `drafts/short_survey_acl_ready.md`
+- `drafts/research_gaps_acl_ready.md`
 
-交接状态见 `HANDOFF.md`。硬停止点见 `STOP_POINT.md`。
+分步草稿：
 
-## 建议执行方式
+- `drafts/part1_field_map.md`
+- `drafts/part2_reward_inventory.md`
+- `drafts/part3_cascade_drift.md`
+- `drafts/part4_silent_errors.md`
+- `drafts/part5_engineering_checklist.md`
+- `drafts/part6_gaps_antipatterns.md`
+- `drafts/part7_adjacent_fields.md`
 
-采用“主工作流顺序推进 + 局部并行检索”的混合方式。不要把所有 prompt 并行丢给多个 agent，因为后续抽取和写作依赖前置 sources 与 schema；但在正式检索阶段，可以把代表工作、benchmark、failure mode、最新 RL 方法拆成并行 sidecar 任务，最后统一去重和审计。
+审计结果：
+
+- `audits/citation_audit.md`
+- `audits/claim_audit.md`
+- `audits/coverage_audit.md`
+- `audits/adversarial_review.md`
+
+证据与矩阵：
+
+- `sources/sources.jsonl`
+- `sources/source_conflicts.md`
+- `sources/missing_sources.md`
+- `matrices/work_taxonomy.csv`
+- `matrices/reward_taxonomy.csv`
+- `notes/works/*.md`
+- `notes/topics/cascade_drift_sources.md`
+- `notes/topics/silent_errors_sources.md`
+
+## PDF 状态
+
+`pdf/` 已包含当前 44 个 source 对应的本地 PDF，失败 0 个。2026-05-26 已用 arXiv export API 和 OpenReview API 核对最新版；状态记录见 `pdf/README.md` 和 `pdf/latest_pdf_manifest.csv`。
+
+## ACL 引用材料
+
+- `latex/agentic_rl_reward_refs.bib`
+- `latex/acl_short_survey_snippet.tex`
+- `latex/citation_guide.md`
+
+## 后续建议
+
+原始 prompt workflow 已结束。若要把综述推进到投稿质量，建议优先：
+
+- 为 Prompt 7/8 的 11 个 supplementary sources 补 full `notes/works/{id}.md`。
+- 深挖 KTO / SimPO / RLOO 是否存在强 tool-use primary evidence。
+- 深挖 API side-effect safety、rollback/recovery reward、cost-aware reward。
+- 按目标会议/期刊格式改写 `drafts/final_survey.md`。
+- 从 `drafts/research_gaps_acl_ready.md` 选一个 gap，扩成 problem statement + benchmark proposal + reward formulation。

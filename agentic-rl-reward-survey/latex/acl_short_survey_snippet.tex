@@ -1,0 +1,31 @@
+\paragraph{Reward design for tool-using agents.}
+Recent tool-use and agent benchmarks expose a gap between executable form and task-level success:
+a function call can be syntactically valid, executable, and still semantically wrong for the user's goal
+\citep{bfcl_2024,apigen_2024,tau_bench_2024,swe_bench_2023}.
+This distinction becomes sharper when LLM agents are optimized with RL or RL-like objectives.
+Reward signals that only check JSON validity, API execution, or final binary success can be sparse,
+miscalibrated, or vulnerable to proxy optimization
+\citep{toolrl_2025,agentprm_framework_2025,toolprmbench_2026,cm2_2026}.
+
+\paragraph{A minimal decomposition.}
+We view a tool-use trajectory $\tau$ as requiring at least task, schema, process, cost, and safety terms:
+\[
+R(\tau)=R_{\text{task}}+\alpha R_{\text{schema}}+\beta R_{\text{process}}
+-\gamma C_{\text{tool}}-\eta R_{\text{unsafe}}
+-\lambda D_{\mathrm{KL}}(\pi_\theta || \pi_{\mathrm{ref}}).
+\]
+The key design constraint is that $R_{\text{schema}}$ should not compensate for semantic failure:
+schema-valid but wrong-entity calls, stale observations, and false-positive execution success should be
+capped or penalized by task-level or state-level oracles.
+
+\paragraph{Open gaps.}
+The current literature leaves several reward-design gaps under-specified:
+(i) semantic rewards for schema-valid but wrong function calls;
+(ii) cascade drift after early wrong API calls or mutable-state updates;
+(iii) rollback and recovery rewards;
+(iv) calibrated abstention or clarification rewards under ambiguity; and
+(v) process-reward calibration against reward hacking
+\citep{webarena_2023,ragen_2025,uprop_2025,rebel_belief_2026,reasoning_trap_2025,internal_tool_hallu_2026}.
+These gaps suggest that robust agentic RL benchmarks should evaluate not only final success, but also
+state consistency, provenance of tool results, recovery after injected errors, and repeated-trial reliability.
+
